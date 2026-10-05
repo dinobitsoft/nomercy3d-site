@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nomercy3d v0.1.0</title>
+<meta name="description" content="nomercy3d v0.1.0: a mobile co-op endless corridor runner built in Godot 4. Four classes, seeded corridors, enemy waves and a four-player shared Run over WebRTC.">
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --text: #e8e6e1;
+    --muted: #9aa0ab;
+    --accent: #e0563a;
+    --accent-2: #f2a65a;
+    --line: #2a2f3a;
+    --ok: #6fcf97;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  a { color: var(--accent-2); }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 64px; }
+  header { padding: 56px 0 24px; border-bottom: 1px solid var(--line); }
+  .eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+  h1 { font-size: clamp(36px, 7vw, 64px); line-height: 1; margin: 8px 0 12px; letter-spacing: -.02em; }
+  .tagline { color: var(--muted); font-size: 18px; max-width: 640px; margin: 0; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .badge { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
+  .badge b { color: var(--text); font-weight: 600; }
+  section { padding: 36px 0 0; }
+  h2 { font-size: 22px; margin: 0 0 14px; }
+  .video {
+    position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .video video { width: 100%; height: 100%; display: block; background: #000; }
+  .video .placeholder { text-align: center; color: var(--muted); padding: 24px; }
+  .video .placeholder b { display: block; color: var(--text); font-size: 18px; margin-bottom: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 16px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+  .classes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .cls { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .cls img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: var(--panel-2); }
+  .cls div { padding: 10px 12px; }
+  .cls b { display: block; }
+  .cls span { color: var(--muted); font-size: 13px; }
+  ul.plain { padding-left: 20px; margin: 0; }
+  ul.plain li { margin: 6px 0; }
+  .dl { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 700;
+    padding: 12px 20px; border-radius: 10px;
+  }
+  .btn.secondary { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); }
+  .note { color: var(--muted); font-size: 14px; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+  code { background: var(--panel-2); padding: 1px 6px; border-radius: 6px; font-size: 90%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Release</div>
+    <h1>nomercy3d <span style="color:var(--accent)">v0.1.0</span></h1>
+    <p class="tagline">A mobile-first endless corridor runner. Pick a class, run down a corridor streamed from one seed, jump the boxes, fight the waves. Up to four phones share one Run.</p>
+    <div class="badges">
+      <span class="badge"><b>Godot</b> 4.7</span>
+      <span class="badge"><b>Platform</b> Android, landscape</span>
+      <span class="badge"><b>Players</b> 1 to 4, WebRTC mesh</span>
+      <span class="badge"><b>Tagged</b> 2026-10-01</span>
+    </div>
+  </header>
+
+  <section id="video">
+    <h2>Gameplay</h2>
+    <div class="video">
+      <video id="clip" controls playsinline preload="metadata" poster="" style="display:none">
+        <source src="gameplay.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" id="clip-missing">
+        <b>Gameplay video coming</b>
+        A short clip recorded on the Galaxy S21 will appear here.
+      </div>
+    </div>
+    <script>
+      (function () {
+        var v = document.getElementById('clip');
+        var p = document.getElementById('clip-missing');
+        fetch('gameplay.mp4', { method: 'HEAD' }).then(function (r) {
+          if (r.ok) { v.style.display = 'block'; p.style.display = 'none'; }
+        }).catch(function () {});
+      })();
+    </script>
+  </section>
+
+  <section id="download">
+    <h2>Get it</h2>
+    <div class="dl">
+      <a class="btn" href="https://github.com/dinobitsoft/nomercy3d-site/releases/tag/v0.1.0">Release downloads</a>
+      <a class="btn secondary" href="https://github.com/dinobitsoft/nomercy3d-site">Site repository</a>
+    </div>
+    <p class="note">The debug APK for Android arm64 is attached to the release when available. Install it by sideloading; the game runs in landscape.</p>
+  </section>
+
+  <section id="classes">
+    <h2>Four classes</h2>
+    <div class="classes">
+      <div class="cls"><img src="img/knight.png" alt="Knight portrait"><div><b>Knight</b><span>Sword sector, the sturdy pick</span></div></div>
+      <div class="cls"><img src="img/archer.png" alt="Archer portrait"><div><b>Archer</b><span>Ballistic arrows, double jump</span></div></div>
+      <div class="cls"><img src="img/assassin.png" alt="Assassin portrait"><div><b>Assassin</b><span>Thrown knives, fastest runner</span></div></div>
+      <div class="cls"><img src="img/wizard.png" alt="Wizard portrait"><div><b>Wizard</b><span>Fireballs that explode on hit</span></div></div>
+    </div>
+  </section>
+
+  <section id="whats-in">
+    <h2>What is in v0.1.0</h2>
+    <div class="grid">
+      <div class="card"><h3>Infinite corridor</h3><p>Chunks streamed around the leader from one run seed. Three lanes, boxes and raised platforms, one lane always open.</p></div>
+      <div class="card"><h3>Movement and attacks</h3><p>Per-class walk, run, jump and double jump. Projectiles with ballistic flight, a melee sector for the knight, stamina and mana gauges.</p></div>
+      <div class="card"><h3>Enemies and waves</h3><p>Charger, Shooter and Blocker spawn in waves whose difficulty tier rises with play. Damage numbers, death and a results screen.</p></div>
+      <div class="card"><h3>Rooms and Lobby</h3><p>Create a room, share the code, pick classes, ready up. A small signalling service in Docker, coturn beside it.</p></div>
+      <div class="card"><h3>The shared Run</h3><p>Every player appears in everyone's corridor. Each enemy is driven by exactly one owner. A hit counts once, kills are credited, the leader pulls stragglers forward.</p></div>
+      <div class="card"><h3>Survives drop-outs</h3><p>If a player leaves, including the host, enemies get a new owner and a new coordinator is elected. The run ends only when everyone is down at once.</p></div>
+    </div>
+  </section>
+
+  <section id="known">
+    <h2>Known limits</h2>
+    <ul class="plain">
+      <li>Models are unrigged, so attacks and jumps show no animation yet. World geometry is untextured.</li>
+      <li>Enemy art is placeholder capsules.</li>
+      <li>The lane Blocker denies a lane through damage pressure, not collision.</li>
+      <li>Multiplayer is verified on a local network. The internet test is still owed.</li>
+      <li>No audio yet.</li>
+    </ul>
+  </section>
+
+  <footer>
+    nomercy3d by dinobitsoft. Built with Godot 4.7, GDScript, Compatibility renderer. Tested on a Galaxy S21.
+  </footer>
+</div>
+</body>
+</html>
